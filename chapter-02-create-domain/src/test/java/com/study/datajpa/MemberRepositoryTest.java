@@ -9,6 +9,7 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,14 +18,15 @@ import com.study.datajpa.repository.MemberRepository;
 
 @ActiveProfiles("test")
 @SpringBootTest
+@Transactional
+@Rollback(false)
 class MemberRepositoryTest {
 
     @Autowired
     MemberRepository memberRepository;
 
     @Test
-    @Transactional
-    public void test() {
+    public void 회원등록() {
         Member member = new Member("memberA");
         memberRepository.save(member);
         
@@ -41,5 +43,4 @@ class MemberRepositoryTest {
         // assertEquals(findMember.getUserName(), member.getUserName()); // 아래와 동일
         assertThat(findMember.getUserName()).isEqualTo(member.getUserName());
     }
-
 }

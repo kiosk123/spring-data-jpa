@@ -1,5 +1,7 @@
 package com.study.datajpa.domain;
 
+import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -35,13 +37,22 @@ public class Member {
     @JoinColumn(name = "TEAM_ID")
     private Team team;
     
+    public Member(String userName, int age, Team team) {
+        this.userName = userName;
+        this.age = age;
+        if (!Objects.isNull(team)) {
+            changeTeam(team);
+        }
+    }
+    
     /**
      * 연관관계 편의 메서드
      */
     public void changeTeam(Team team) {
         this.team = team;
-        team.getMembers().removeIf(m -> m.getId().equals(this.getId()));
+        if (!Objects.isNull(id)) {
+            team.getMembers().removeIf(m -> m.getId().equals(id)); 
+        }
         team.getMembers().add(this);
-        
     }
 }
