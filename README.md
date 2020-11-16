@@ -21,6 +21,8 @@
     - 그레이들에서 다음과 같이 설정
     - implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.6' 
     - 운영에서는 사용하지 말 것
+    
+ - [테스트시 Unable to Find @SpringBootConfiguration 오류 해결 ](https://www.baeldung.com/spring-boot-unable-to-find-springbootconfiguration-with-datajpatest)
 
 ## 챕터별 설명
  - 챕터 1 : 프로젝트 구성
