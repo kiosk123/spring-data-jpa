@@ -31,3 +31,5 @@
         - 리포지토리 인터페이스가 JpaRepository를 상속받아 구현한다. 
  - 챕터 2 : 예제 도메인 구성
  - 챕터 3 : Spring Data JPA를 이용한 리포지토리 생성
+    - 공통인퍼테이스 설정 @EnableJpaRepositories(basePackages = "")
+    - Spring Boot는 위의 과정도 자동화
