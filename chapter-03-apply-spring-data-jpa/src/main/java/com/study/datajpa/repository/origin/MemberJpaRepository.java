@@ -1,4 +1,4 @@
-package com.study.datajpa.repository;
+package com.study.datajpa.repository.origin;
 
 import java.util.List;
 import java.util.Optional;
