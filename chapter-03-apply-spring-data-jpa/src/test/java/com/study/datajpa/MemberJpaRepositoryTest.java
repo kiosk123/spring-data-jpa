@@ -9,7 +9,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.study.datajpa.domain.Member;
-import com.study.datajpa.repository.MemberJpaRepository;
+import com.study.datajpa.repository.origin.MemberJpaRepository;
 
 /**
  * 테스트시 @SpringBootApplication이 설정된 클래스의 패키와 같은 경로거나
