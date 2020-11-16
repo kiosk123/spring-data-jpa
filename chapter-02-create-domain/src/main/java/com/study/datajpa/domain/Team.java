@@ -32,9 +32,4 @@ public class Team {
     @Getter
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
     private List<Member> members = new ArrayList<>();
-    
-    public void addMember(Member member) {
-        members.removeIf(m -> m.getId().equals(member.getId()));
-        members.add(member);
-    }
 }
