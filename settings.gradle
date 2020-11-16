@@ -10,3 +10,4 @@
 rootProject.name = 'spring-data-jpa'
 
 include 'chapter-01-project-configuration'
+include 'chapter-02-create-domain'
