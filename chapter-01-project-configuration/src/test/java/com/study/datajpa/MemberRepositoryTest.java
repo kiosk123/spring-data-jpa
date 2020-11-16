@@ -37,7 +37,9 @@ class MemberRepositoryTest {
         
         assertNotNull(findMember);
         assertEquals(findMember.getId(), member.getId());
-        assertEquals(findMember.getUserName(), member.getUserName());
+        
+        // assertEquals(findMember.getUserName(), member.getUserName()); // 아래와 동일
+        assertThat(findMember.getUserName()).isEqualTo(member.getUserName());
     }
 
 }
