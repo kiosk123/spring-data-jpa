@@ -54,5 +54,6 @@ class MemberAndTeamTest {
         
         // 데이터 중복 체크
         assertEquals(names.size(), 4);
+        
     }
 }
