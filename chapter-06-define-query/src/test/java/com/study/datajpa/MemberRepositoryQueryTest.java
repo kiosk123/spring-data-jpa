@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
@@ -185,4 +185,39 @@ class MemberRepositoryQueryTest {
         //이전페이지가 존재하는가?
         assertThat(page.hasPrevious()).isFalse();
     }
+    
+    /**
+     * 슬라이스 Slice 테스트
+     */
+    @Test
+    public void findByAgeUsingSlice() {
+        /*
+         * 페이지 번호(0 부터 시작), 가져올 데이터 수, 정렬 기준은 userName 프로퍼티를 기준으로 내림차순으로
+         */
+        int age = 10;
+        PageRequest pageRequest = PageRequest.of(0, 3, Sort.by(Sort.Direction.DESC, "userName"));
+        
+        //Page의 부모인터페이스 Slice이다.
+        Slice<Member> page = memberRepository.findByAge(age, pageRequest);
+        
+        List<Member> content = page.getContent();
+        
+        //-- then --//
+        //3개를 정확하게 가져왔는가?
+        assertEquals(3, content.size()); 
+        
+        //현재 페이지 번호
+        //현재 페이지번호가 0이 맞는가?
+        assertEquals(0, page.getNumber()); 
+        
+        //현재페이지가 첫번째 페이지인가
+        assertThat(page.isFirst()).isTrue();
+        
+        //다음페이지가 있은가?
+        assertThat(page.hasNext()).isTrue();
+        
+        //이전페이지가 존재하는가?
+        assertThat(page.hasPrevious()).isFalse();
+    }
+    
 }
