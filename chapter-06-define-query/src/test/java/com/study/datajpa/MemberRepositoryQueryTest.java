@@ -12,6 +12,7 @@ import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.QueryHint;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,6 +27,7 @@ import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
@@ -286,8 +288,15 @@ class MemberRepositoryQueryTest {
         em.flush();
         em.clear();
         
+        /**
+         * findById는 다음과 같이 설정되어 있음
+         * @QueryHints(value = @QueryHint(name = "org.hibernate.readOnly", value = "true"))
+         * 위와 같이 설정하면 반환된 엔티티를 변경하고 flush()나 commit()해도 DB에는 반영안됨
+         * 스냅샷을 만들지 않기 때문에 조회 성능이 좋아지고 조회 쿼리에만 사용하는데
+         * 무작정 사용하지 말고 정말 조회 트래픽이 너무 많아서 부하가 심각한 곳에 여러번 생각후에 설정한다.
+         */
         Member findMember = memberRepository.findById(member.getId()).get();
-        findMember.setUserName("member2");
+        findMember.setUserName("member2"); //변경해도 변경감지 안됨
         em.flush();
     }
     

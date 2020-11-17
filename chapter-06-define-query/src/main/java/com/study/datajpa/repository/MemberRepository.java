@@ -82,8 +82,11 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     
     /**
      * JPA 힌트
-     * @QueryHint(name = "org.hibernate.readOnly", value = "true") 설정시
-     * 변경감지 체크를 안한다. 성능 최적화를 위해 스냅샷을 안 만든다.
+     * findById는 다음과 같이 설정되어 있음
+     * @QueryHints(value = @QueryHint(name = "org.hibernate.readOnly", value = "true"))
+     * 위와 같이 설정하면 반환된 엔티티를 변경하고 flush()나 commit()해도 DB에는 반영안됨
+     * 스냅샷을 만들지 않기 때문에 조회 성능이 좋아지고 조회 쿼리에만 사용하는데
+     * 무작정 사용하지 말고 정말 조회 트래픽이 너무 많아서 부하가 심각한 곳에 여러번 생각후에 설정한다.
      */
     @QueryHints(value = @QueryHint(name = "org.hibernate.readOnly", value = "true"))
     Member findReadOnlyByUserName(String userName);
