@@ -44,8 +44,8 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
      * totalCount를 가져오는 것은 데이터량이 많아지거나 조인하는 테이블이 많아지면 복잡할 수 있다.
      * totalCount는 조인하여 가져오지 않아도 되는 경우가 많기 때문에 countQuery를 분리하여 사용할 수 있다.
      */
-    @Query(value = "select m from Member m left fetch m.team t", countQuery = "select count(m.userName) from Member m")
-    Page<Member> findByAge(int age, Pageable pageable);
+    @Query(value = "select m from Member m left join m.team t where m.age = :age", countQuery = "select count(m.userName) from Member m where m.age = :age")
+    Page<Member> findByAge(@Param("age")int age, Pageable pageable);
     
     @Query("select m from Member m where m.age = :age")
     Slice<Member> findByAgeIntoSlice(@Param("age")int age, Pageable pageable);

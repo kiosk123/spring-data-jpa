@@ -184,6 +184,10 @@ class MemberRepositoryQueryTest {
         
         //이전페이지가 존재하는가?
         assertThat(page.hasPrevious()).isFalse();
+        
+        //page 타입을 DTO로 변환
+        page.map(member -> new MemberDTO(member.getId(), member.getUserName(), member.getTeam().getName()));
+        
     }
     
     /**
