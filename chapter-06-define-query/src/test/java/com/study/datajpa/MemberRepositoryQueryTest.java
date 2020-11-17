@@ -57,16 +57,25 @@ class MemberRepositoryQueryTest {
         Member member2 = new Member("AAA", 20, teamA);
         Member member3 = new Member("member3", 30, teamB);
         Member member4 = new Member("member4", 40, teamB);
+        Member member5 = new Member("member5", 10, teamA);
+        Member member6 = new Member("member6", 10, teamA);
+        Member member7 = new Member("member7", 10, teamA);
         
         memberRepository.save(member1);
         memberRepository.save(member2);
         memberRepository.save(member3);
         memberRepository.save(member4);
+        memberRepository.save(member5);
+        memberRepository.save(member6);
+        memberRepository.save(member7);
         
         names.add(member1.getUserName());
         names.add(member2.getUserName());
         names.add(member3.getUserName());
         names.add(member4.getUserName());
+        names.add(member5.getUserName());
+        names.add(member6.getUserName());
+        names.add(member7.getUserName());
     }
     
     @Test
@@ -102,8 +111,8 @@ class MemberRepositoryQueryTest {
     public void findUserNameList() {
         List<String> collect = memberRepository.findUserNameList();
        
-        assertEquals(4, collect.size());
-        assertEquals(4, names.size());
+        assertEquals(7, collect.size());
+        assertEquals(7, names.size());
         collect.forEach(name -> {
             if (!names.contains(name)) {
                 fail(name + " is not in findUserNameList");
@@ -115,8 +124,8 @@ class MemberRepositoryQueryTest {
     public void findMemberDTO() {
         List<MemberDTO> collect = memberRepository.findMemberDTO();
        
-        assertEquals(4, collect.size());
-        assertEquals(4, names.size());
+        assertEquals(7, collect.size());
+        assertEquals(7, names.size());
         collect.forEach(dto -> {
             if (!names.contains(dto.getUserName())) {
                 fail(dto.getUserName() + " is not in findMemberDTO");
@@ -125,18 +134,21 @@ class MemberRepositoryQueryTest {
         
     }
     
-    
+
     @Test
     public void findByNames() {
         List<String> userNames = new ArrayList<>(names);
         
         List<Member> collect = memberRepository.findByNames(userNames);
         
-        assertEquals(4, collect.size());
+        assertEquals(7, collect.size());
     }
     
+    /**
+     * 페이징 테스트
+     */
     @Test
-    public void findByPage() {
+    public void findByAge() {
         /*
          * 페이지 번호(0 부터 시작), 가져올 데이터 수, 정렬 기준은 userName 프로퍼티를 기준으로 내림차순으로
          */
@@ -148,10 +160,29 @@ class MemberRepositoryQueryTest {
         List<Member> content = page.getContent();
         Long totalCount = page.getTotalElements();
         
-        assertEquals(1, content.size());
-        Member member = content.get(0);
-        assertEquals("member1", member.getUserName());
-        assertEquals(1, totalCount);
         
+        //-- then --//
+        //3개를 정확하게 가져왔는가?
+        assertEquals(3, content.size()); 
+        
+        //전체 데이터수가 4개인가
+        assertEquals(4, totalCount); 
+        
+        //현재 페이지 번호
+        //현재 페이지번호가 0이 맞는가?
+        assertEquals(0, page.getNumber()); 
+        
+        //전체페이지 개수
+        //전체 페이지 갯수는 2개여야 된다. (전체데이터 4개에서 1페이지가 3개로 이루어짐으로)
+        assertEquals(2, page.getTotalPages()); 
+        
+        //현재페이지가 첫번째 페이지인가
+        assertThat(page.isFirst()).isTrue();
+        
+        //다음페이지가 있은가?
+        assertThat(page.hasNext()).isTrue();
+        
+        //이전페이지가 존재하는가?
+        assertThat(page.hasPrevious()).isFalse();
     }
 }
