@@ -37,3 +37,5 @@
  - 챕터 4 : 메소드 이름으로 쿼리 생성
     - [쿼리 메소드 키워드 참고 1.](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repository-query-keywords)
     - [쿼리 메소드 키워드 참고 2.](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repositories.limit-query-result)
+ - 챕터 5 : 네임드쿼리
+ 
