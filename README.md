@@ -35,3 +35,4 @@
     - Spring Boot는 위의 과정도 자동화
     - 리포지토리 인터페이스(중요!!!)에서 JpaRepository<엔티티타입, PK타입> 인터페이스를 구현
  - 챕터 4 : 메소드 이름으로 쿼리 생성
+    - [쿼리 메소드 키워드 참고](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repository-query-keywords)

@@ -1,6 +1,9 @@
 package com.study.datajpa;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,5 +35,24 @@ class MemberJpaRepositoryTest {
         
         assertEquals(findMember.getUserName(), member.getUserName());
         assertEquals(findMember.getId(), member.getId());
+    }
+    
+    @Test
+    @Transactional
+    public void findByUserNameAndGreaterThen() {
+        Member member1 = new Member("member1", 10, null);
+        Member member2 = new Member("AAA", 20, null);
+        Member member3 = new Member("member3", 30, null);
+        Member member4 = new Member("member4", 40, null);
+        memberJpaRepository.save(member1);
+        memberJpaRepository.save(member2);
+        memberJpaRepository.save(member3);
+        memberJpaRepository.save(member4);
+        
+        List<Member> collect = memberJpaRepository.findByUserNameAndAgeGreaterThan("AAA", 15);
+        
+        assertEquals(1, collect.size());
+        assertThat(20).isEqualTo(collect.get(0).getAge());
+        assertThat("AAA").isEqualTo(collect.get(0).getUserName());
     }
 }

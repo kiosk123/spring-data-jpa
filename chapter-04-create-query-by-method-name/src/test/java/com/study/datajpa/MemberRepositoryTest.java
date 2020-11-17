@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
@@ -42,5 +43,23 @@ class MemberRepositoryTest {
         
         // assertEquals(findMember.getUserName(), member.getUserName()); // 아래와 동일
         assertThat(findMember.getUserName()).isEqualTo(member.getUserName());
+    }
+    
+    @Test
+    public void findByUserNameAndGreaterThen() {
+        Member member1 = new Member("member1", 10, null);
+        Member member2 = new Member("AAA", 20, null);
+        Member member3 = new Member("member3", 30, null);
+        Member member4 = new Member("member4", 40, null);
+        memberRepository.save(member1);
+        memberRepository.save(member2);
+        memberRepository.save(member3);
+        memberRepository.save(member4);
+        
+        List<Member> collect = memberRepository.findByUserNameAndAgeGreaterThan("AAA", 15);
+        
+        assertEquals(1, collect.size());
+        assertThat(20).isEqualTo(collect.get(0).getAge());
+        assertThat("AAA").isEqualTo(collect.get(0).getUserName());
     }
 }
