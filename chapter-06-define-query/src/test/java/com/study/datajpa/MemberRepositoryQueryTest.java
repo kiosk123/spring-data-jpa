@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -118,5 +119,15 @@ class MemberRepositoryQueryTest {
             }
         });
         
+    }
+    
+    
+    @Test
+    public void findByNames() {
+        List<String> userNames = new ArrayList<>(names);
+        
+        List<Member> collect = memberRepository.findByNames(userNames);
+        
+        assertEquals(4, collect.size());
     }
 }
