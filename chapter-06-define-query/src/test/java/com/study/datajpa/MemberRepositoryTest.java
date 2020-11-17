@@ -3,6 +3,7 @@ package com.study.datajpa;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.Optional;
 
@@ -40,5 +41,24 @@ class MemberRepositoryTest {
         
         // assertEquals(findMember.getUserName(), member.getUserName()); // 아래와 동일
         assertThat(findMember.getUserName()).isEqualTo(member.getUserName());
+    }
+    
+    @Test
+    public void findByUserNameAndAge() {
+        Member member = new Member("memberA");
+        member.setAge(15);
+        memberRepository.save(member);
+        
+        Optional<Member> memberOpt = memberRepository.findByUserNameAndAge(member.getUserName(), member.getAge());
+        
+        if (memberOpt.isPresent()) {
+            Member findMember = memberOpt.get();
+            assertEquals(member.getId(), findMember.getId());
+            assertEquals(member.getUserName(), findMember.getUserName());
+            assertEquals(member.getAge(), findMember.getAge());
+        } 
+        else {
+            fail("seach member by userName and age");
+        }
     }
 }

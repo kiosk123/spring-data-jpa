@@ -1,6 +1,7 @@
 package com.study.datajpa.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.NamedQuery;
 
@@ -15,6 +16,10 @@ import com.study.datajpa.dto.MemberDTO;
 @NamedQuery(name = "Member.findByUserName",
             query = "select m from Member m where m.userName = :userName")
 public interface MemberRepository extends JpaRepository<Member, Long> {
+    
+    //Optional로 반환가능함
+    Optional<Member> findByUserNameAndAge(String userName, int age);
+    
     List<Member> findByUserNameAndAgeGreaterThan(String userName, int age);
     
     @Query(name = "Member.findByUsername")
