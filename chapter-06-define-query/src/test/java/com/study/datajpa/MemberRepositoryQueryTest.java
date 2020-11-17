@@ -153,7 +153,7 @@ class MemberRepositoryQueryTest {
          * 페이지 번호(0 부터 시작), 가져올 데이터 수, 정렬 기준은 userName 프로퍼티를 기준으로 내림차순으로
          */
         int age = 10;
-        Pageable pageRequest = PageRequest.of(0, 3, Sort.by(Sort.Direction.DESC, "userName"));
+        PageRequest pageRequest = PageRequest.of(0, 3, Sort.by(Sort.Direction.DESC, "userName"));
         
         Page<Member> page = memberRepository.findByAge(age, pageRequest);
         
