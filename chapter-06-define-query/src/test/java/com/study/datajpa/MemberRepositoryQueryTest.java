@@ -203,6 +203,11 @@ class MemberRepositoryQueryTest {
         
         //-- then --//
         //3개를 정확하게 가져왔는가?
+        /**
+         * 실제로는 select ... limit 4; 과 같이
+         * 4개를 가져옴 -> 요청한 데이터 갯수 + 1
+         * 모바일의 더 보기 기능에 유용
+         */
         assertEquals(3, content.size()); 
         
         //현재 페이지 번호
