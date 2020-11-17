@@ -277,8 +277,15 @@ class MemberRepositoryQueryTest {
     }
     
     @Test
-    public void entityGraph() {
-        memberRepository.findAll();
+    public void queryHint() {
+        Member member = new Member("newMember", 10);
+        memberRepository.save(member);
+        em.flush();
+        em.clear();
+        
+        Member findMember = memberRepository.findById(member.getId()).get();
+        findMember.setUserName("member2");
+        em.flush();
     }
     
 }

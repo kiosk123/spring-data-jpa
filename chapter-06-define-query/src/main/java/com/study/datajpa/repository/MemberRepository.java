@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.NamedQuery;
+import javax.persistence.QueryHint;
 
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -13,6 +14,7 @@ import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.data.repository.query.Param;
 
 import com.study.datajpa.domain.Member;
@@ -77,4 +79,12 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     
     @EntityGraph(attributePaths = {"team"})
     List<Member> findEntityGrapthByUserName(@Param("userName") String userName);
+    
+    /**
+     * JPA 힌트
+     * @QueryHint(name = "org.hibernate.readOnly", value = "true") 설정시
+     * 변경감지 체크를 안한다. 성능 최적화를 위해 스냅샷을 안 만든다.
+     */
+    @QueryHints(value = @QueryHint(name = "org.hibernate.readOnly", value = "true"))
+    Member findReadOnlyByUserName(String userName);
 }

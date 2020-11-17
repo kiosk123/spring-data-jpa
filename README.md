@@ -64,4 +64,6 @@
     - @EntityGraph
         - 연관된 엔티티들을 SQL로 한번에 조회하는 방법
         - JPQL롤 페치조인 쿼리 작성 없이 @EntityGraph와 attributePaths를 이용하여 연관관계가 맺어진 엔티티를 가져올 수 있다.
- 
+    - JPA 힌트 & 락
+        - JPA 쿼리 힌트(@QueryHints, @QueryHint) (SQL 힌트가 아니라 JPA 구현체에게 제공하는 힌트)
+        
