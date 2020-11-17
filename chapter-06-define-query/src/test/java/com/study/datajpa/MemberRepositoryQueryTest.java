@@ -14,6 +14,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
@@ -23,6 +24,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
@@ -37,8 +39,6 @@ import com.study.datajpa.repository.TeamRepository;
 @ActiveProfiles("test")
 @SpringBootTest
 @Transactional
-@Rollback(false)
-@TestInstance(Lifecycle.PER_CLASS)
 class MemberRepositoryQueryTest {
     
     @Autowired
@@ -52,7 +52,7 @@ class MemberRepositoryQueryTest {
     
     Set<String> names = new HashSet<>();
     
-    @BeforeAll
+    @BeforeEach
     public void settingMemberData() {
         
         Team teamA = new Team("teamA");
@@ -274,6 +274,11 @@ class MemberRepositoryQueryTest {
         findMember = memberRepository.findById(member.getId()).get();
         assertEquals(21, findMember.getAge());
         
+    }
+    
+    @Test
+    public void entityGraph() {
+        memberRepository.findAll();
     }
     
 }
