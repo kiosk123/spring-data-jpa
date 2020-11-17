@@ -44,4 +44,5 @@
     - 단순 값과 DTO 조회
     - [반환 가능한 타입](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repository-query-return-types)
     - 페이징과 정렬
+        - Sort와 Pageable을 활용
  
