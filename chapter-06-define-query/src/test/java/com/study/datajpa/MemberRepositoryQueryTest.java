@@ -15,6 +15,10 @@ import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
@@ -129,5 +133,25 @@ class MemberRepositoryQueryTest {
         List<Member> collect = memberRepository.findByNames(userNames);
         
         assertEquals(4, collect.size());
+    }
+    
+    @Test
+    public void findByPage() {
+        /*
+         * 페이지 번호(0 부터 시작), 가져올 데이터 수, 정렬 기준은 userName 프로퍼티를 기준으로 내림차순으로
+         */
+        int age = 10;
+        Pageable pageRequest = PageRequest.of(0, 3, Sort.by(Sort.Direction.DESC, "userName"));
+        
+        Page<Member> page = memberRepository.findByAge(age, pageRequest);
+        
+        List<Member> content = page.getContent();
+        Long totalCount = page.getTotalElements();
+        
+        assertEquals(1, content.size());
+        Member member = content.get(0);
+        assertEquals("member1", member.getUserName());
+        assertEquals(1, totalCount);
+        
     }
 }

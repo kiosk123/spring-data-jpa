@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import javax.persistence.NamedQuery;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -36,5 +38,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     
     @Query("select new com.study.datajpa.dto.MemberDTO(m.id, m.userName, t.name) from Member m join m.team t")
     List<MemberDTO> findMemberDTO();
+    
+    Page<Member> findByAge(int age, Pageable pageable);
    
 }
