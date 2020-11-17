@@ -41,4 +41,5 @@
     - @NamedQuery, @Query, @Param 활용
  - 챕터 6 : 리포지토리에 쿼리 정의
     - @Query, @Param 활용 
+    - 단순 값과 DTO 조회
  
