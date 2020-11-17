@@ -45,6 +45,11 @@ public class Member {
         }
     }
     
+    public Member(String userName, int age) {
+        this.userName = userName;
+        this.age = age;
+    }
+    
     /**
      * 연관관계 편의 메서드
      */
