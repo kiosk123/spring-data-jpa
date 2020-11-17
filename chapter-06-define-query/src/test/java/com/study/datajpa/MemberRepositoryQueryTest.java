@@ -96,6 +96,7 @@ class MemberRepositoryQueryTest {
     @Test
     public void findUserNameList() {
         List<String> collect = memberRepository.findUserNameList();
+       
         assertEquals(4, collect.size());
         assertEquals(4, names.size());
         collect.forEach(name -> {
@@ -108,6 +109,14 @@ class MemberRepositoryQueryTest {
     @Test
     public void findMemberDTO() {
         List<MemberDTO> collect = memberRepository.findMemberDTO();
+       
         assertEquals(4, collect.size());
+        assertEquals(4, names.size());
+        collect.forEach(dto -> {
+            if (!names.contains(dto.getUserName())) {
+                fail(dto.getUserName() + " is not in findMemberDTO");
+            }
+        });
+        
     }
 }
