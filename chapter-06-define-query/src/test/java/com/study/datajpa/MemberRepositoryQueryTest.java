@@ -19,6 +19,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
@@ -228,6 +229,13 @@ class MemberRepositoryQueryTest {
         
         //이전페이지가 존재하는가?
         assertThat(slice.hasPrevious()).isFalse();
+    }
+    
+    @Test
+    public void buikAgePlus() {
+        int updateCount = memberRepository.bulkAgePlus(20);
+        
+        assertEquals(3, updateCount);
     }
     
 }
