@@ -42,4 +42,5 @@
  - 챕터 6 : 리포지토리에 쿼리 정의
     - @Query, @Param 활용 
     - 단순 값과 DTO 조회
+    - [반환 가능한 타입](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repository-query-return-types)
  
