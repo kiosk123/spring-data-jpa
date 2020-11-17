@@ -20,7 +20,7 @@ import com.study.datajpa.repository.MemberRepository;
 @ActiveProfiles("test")
 @SpringBootTest
 @Transactional
-@Rollback(false)
+@Rollback(true)
 class MemberRepositoryTest {
 
     @Autowired
@@ -61,5 +61,16 @@ class MemberRepositoryTest {
         assertEquals(1, collect.size());
         assertThat(20).isEqualTo(collect.get(0).getAge());
         assertThat("AAA").isEqualTo(collect.get(0).getUserName());
+    }
+    
+    @Test
+    public void findByUserName() {
+        Member member1 = new Member("member1", 10, null);
+        memberRepository.save(member1);
+        
+        List<Member> collect = memberRepository.findByUserName(member1.getUserName());
+        
+        assertEquals(1, collect.size());
+        assertEquals("member1", collect.get(0).getUserName());
     }
 }
