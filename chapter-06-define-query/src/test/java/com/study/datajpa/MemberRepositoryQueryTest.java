@@ -300,4 +300,33 @@ class MemberRepositoryQueryTest {
         em.flush();
     }
     
+    /**
+     * JPA 락 테스트
+     */
+    @Test
+    public void lock() {
+        Member member = new Member("newMember", 10);
+        memberRepository.save(member);
+        em.flush();
+        em.clear();
+        
+        /*
+         *  select
+                member0_.member_id as member_i1_0_,
+                member0_.age as age2_0_,
+                member0_.team_id as team_id4_0_,
+                member0_.user_name as user_nam3_0_ 
+            from
+                member member0_ 
+            where
+                member0_.user_name=? for update
+            
+            실행시 위 처럼 쿼리에 for update가 붙는 걸 볼 수 있음
+         */
+        
+        Member findMember = memberRepository.findLockByUserName(member.getUserName()).get(0);
+        findMember.setUserName("member2"); 
+        em.flush();
+    }
+    
 }

@@ -3,6 +3,7 @@ package com.study.datajpa.repository;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.LockModeType;
 import javax.persistence.NamedQuery;
 import javax.persistence.QueryHint;
 
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.QueryHints;
@@ -90,4 +92,13 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
      */
     @QueryHints(value = @QueryHint(name = "org.hibernate.readOnly", value = "true"))
     Member findReadOnlyByUserName(String userName);
+    
+    /**
+     * JPA 락
+     * 다른 트랜잭션이 접근 못하게 락을 걸어벌임
+     * 다음과 같이 설정하면 쓰기때 비관적 락모드가 걸림 
+     * @Lock(LockModeType.PESSIMISTIC_WRITE)
+     */
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    List<Member> findLockByUserName(String userName);
 }
