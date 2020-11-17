@@ -276,6 +276,9 @@ class MemberRepositoryQueryTest {
         
     }
     
+    /**
+     * Query 힌트 테스트
+     */
     @Test
     public void queryHint() {
         Member member = new Member("newMember", 10);
