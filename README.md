@@ -44,5 +44,11 @@
     - 단순 값과 DTO 조회
     - [반환 가능한 타입](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repository-query-return-types)
     - 페이징과 정렬
-        - Sort와 Pageable을 활용
+        - 페이징과 정렬 파라미터
+            - Sort : 정렬기능
+            - Pageable : 페이징 기능(내부에 Sort 포함)
+        - 반환타입
+            - Page : 추가 count 쿼리 결과를 포함하는 페이징
+            - Slice : 추가 count 쿼리 없이 다음 페이지만 확인 가능(내부적으로 limit + 1조히) - 모바일에서 더 보기 기능
+            - List (자바 컬렉션) : 추가 count 쿼리 없이 결과만 반환 
  
