@@ -3,11 +3,15 @@ package com.study.datajpa;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -42,6 +46,9 @@ class MemberRepositoryQueryTest {
     
     @Autowired
     TeamRepository teamRepository;
+    
+    @PersistenceContext
+    EntityManager em;
     
     Set<String> names = new HashSet<>();
     
@@ -233,9 +240,40 @@ class MemberRepositoryQueryTest {
     
     @Test
     public void buikAgePlus() {
+        Member member = new Member("BBB", 20);
+        memberRepository.save(member);
+        
         int updateCount = memberRepository.bulkAgePlus(20);
         
-        assertEquals(3, updateCount);
+        assertEquals(4, updateCount);
+        
+        Member findMember = memberRepository.findById(member.getId()).get();
+        
+        /**
+         * 원래 나이는 20살에 20 + 1이므로 21살이 되어야한다.
+         * 하지만 실제로는 20살이 나온다.
+         * 그 이유는 JPQL, @NamedQuery(결국은 JPQL을 query name으로 매핑한 것)로 select하고
+         * 영속성 컨텍스트에서 select로 가줘온 엔티티를 반환되지만.
+         * 
+         * JPQL이 아닌 EntityManager의 find()나 @Query를 통한 데이터를 가져오지 않는 쿼리 이름 메소드(ex. findById)로
+         * 데이터를 가져온 경우에는 DB가 아닌 먼저 영속성 컨텍스트에 있는 것을 먼저조회하기 때문에
+         * 벌크 연산 후에는 영속성 컨텍스트를 flush()와 clear()를 같이하거나 clear() 해줘야 한다.
+         * 
+         * 가장 좋은 건 벌크연산만 실행하고 딱 끝나는 것이 좋다.!!!
+         */
+        assertNotEquals(21, findMember.getAge());
+        
+        /**
+         * 같은 트랜잭션 상에서 EntityManager의 동일성을 스프링은 보장한다.
+         */
+        em.clear();
+        
+        /**
+         * 21살로 정확히 다시 조회된다.
+         */
+        findMember = memberRepository.findById(member.getId()).get();
+        assertEquals(21, findMember.getAge());
+        
     }
     
 }
