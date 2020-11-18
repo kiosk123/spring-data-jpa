@@ -123,3 +123,12 @@
            - ex) @Qualifier("member") -> member_page=0&member_size=10
     - page파라미터 시작 페이지값을 0이아닌 1로 시작하려면 application.yml에 spring.data.web.pageable.one-indexed-parameters 옵션을 true로 설정하면 되지만  
       응답되는 페이지 시작번호의 값은 여전히 0부터 시작하는 문제가 있다 (되도록 기본 옵션으로 할 것을 권장)
+ - 챕터 10 : 새로운 엔티티 구별방법
+    - 문제  
+      스프링 데이터 JPA는 식별자 필드(PK필드)에 값이 없으면 persist하고 있으면 merge한다.  
+      문제는 기존테이블이 분할되어 ID생성 정책이 변경되어 ID를 직접 채번해서 입력해야할 경우가 생기면 persist전에 아이디가 생성된다.  
+      이렇게 되면 persist를 호출하는데 아닌 merge를 호출해서 DB에 해당 식별값에 해당하는 데이터가 있는지 select 쿼리를 하고 나서  
+      엔티티를 생성하게 되는 비효율적인 상황이 발생한다.
+    - 해결  
+      Persistable<식별(PK)필드 타입> 인터페이스를 엔티티가 구현하여 새로운 엔티티인지 아닌지 판단하는 로직을 구현한다.
+    
