@@ -6,6 +6,8 @@ import java.util.UUID;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 @Configuration
 public class AuditingBeanConfiguration {
@@ -20,6 +22,7 @@ public class AuditingBeanConfiguration {
         return new AuditorAware<String>() {
             @Override
             public Optional<String> getCurrentAuditor() {
+                //((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest().getSession();
                 return Optional.of(UUID.randomUUID().toString());
             }
         };
