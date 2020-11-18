@@ -85,3 +85,8 @@
                         - (ex) @EnableJpaRepositories(basePackages = "study.datajpa.repository", repositoryImplementationPostfix = "Impl")
             - 특정 기능의 정의된 인터페이스를 Spring Data JPA 기능 정의 인터페이스가 상속 받게 함
                 - (ex) MemberRepository extends JpaRepository<T,ID>, MemberRepositoryCustom
+       - 권장사항 중요!!!!!
+            - 항상 사용자 정의 리포지토리가 필요한 것은 아니고 그냥 임의의 리포지토리를 만들어서 스프링 빈으로 등록해서 직접 사용해도된다.
+            - 사용자 정의 리포지토리를 구현하면 Spring Data JPA 정의 인터페이스의 혼잡도가 증가됨
+            - 예를 들어 순수 엔티티 조회용과 DTO(뷰나 API에서 사용)변환용 기능이 다 정의되면 혼잡할 수 있음
+            - 이럴 때는 단순한 엔티티 조회용은 Spring Data JPA 인터페이스로 정의하고 복잡한 비즈니스 로직은 따로 스프링빈으로 정의하여 빼는 것이 좋음 
