@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.study.datajpa.domain.Member;
 import com.study.datajpa.domain.Team;
+import com.study.datajpa.dto.NestedClosedProjections;
 import com.study.datajpa.dto.UserData;
 import com.study.datajpa.dto.UserNameOnly;
 import com.study.datajpa.dto.UserNameOnlyDTO;
@@ -60,6 +61,15 @@ class ProjectionsTest {
         //dto클래스를 이용한 프로젝션
         List<UserNameOnlyDTO> dtos = memberRepository.findDTOProjectionsByUserName("m1");
         assertEquals("m1", dtos.get(0).getUserName());
+        
+        //제네릭 타입으로 프로젝션 - 동적프로젝션
+        List<UserNameOnlyDTO> generics = memberRepository.findGenericProjectionsByUserName("m1", UserNameOnlyDTO.class);
+        assertEquals("m1", generics.get(0).getUserName());
+        
+        //Nested 중첩 프로젝션 - 단 연관관계 데이터는 해당조건에 해당하는 연관관계 엔티티 데이터를 전체를 가져오기 때문에 복잡한 쿼리일경우 한계가 있다.
+        List<NestedClosedProjections> cNested = memberRepository.findGenericProjectionsByUserName("m1", NestedClosedProjections.class);
+        assertEquals("m1", cNested.get(0).getUserName());
+        assertEquals("teamA", cNested.get(0).getTeam().getName());
     } 
 
 }
