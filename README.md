@@ -66,4 +66,12 @@
         - JPQL롤 페치조인 쿼리 작성 없이 @EntityGraph와 attributePaths를 이용하여 연관관계가 맺어진 엔티티를 가져올 수 있다.
     - JPA 힌트 & 락
         - JPA 쿼리 힌트(@QueryHints, @QueryHint) (SQL 힌트가 아니라 JPA 구현체에게 제공하는 힌트)
+ - 챕터 7 : 확장
+    - 사용자 정의 리포지토리 : 인터페이스 메서드 직접 구현시 구현기능이 많아짐 다양한 이유로 직접 특정 메서드만 특정 기능으로 구현하고 싶을 때 사용
+        - JPA 직접 사용
+        - 스프링 JDBC Template 사용
+        - MyBatis 사용
+        - 데이터베이스 커넥션 직접 사용
+        - Query DSL 사용
+    
         
