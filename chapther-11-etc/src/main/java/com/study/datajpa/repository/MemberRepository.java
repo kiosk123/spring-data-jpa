@@ -115,6 +115,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> , MemberRe
     
     <T> List<T> findGenericProjectionsByUserName(@Param("userName") String userName, Class<T> type);
     
-    @Query(value = "select * from member where userName = ?", nativeQuery = true)
+    @Query(value = "select * from member where user_name = ?", nativeQuery = true)
     Member findByNativeQuery(String userName);
 }
