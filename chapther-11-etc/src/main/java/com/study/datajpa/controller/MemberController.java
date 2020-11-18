@@ -1,7 +1,5 @@
 package com.study.datajpa.controller;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,10 +28,5 @@ public class MemberController {
     @GetMapping("/members2/{id}")
     public String findMember(@PathVariable("id") Member member) {
         return member.getUserName();
-    }
-    
-    @PostConstruct
-    public void init() {
-        memberRepository.save(new Member("userA"));
     }
 }
