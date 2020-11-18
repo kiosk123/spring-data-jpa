@@ -116,3 +116,5 @@
        - sort - 특정 컬럼을 기준으로 정렬하는데 사용한다. sort=정렬대상프로퍼티명,<asc,desc>형태로 사용한다.
        - size - 한페이지에 노출할 데이터 건수
        - ex) page=1&sort=id,desc&sort=userName,desc 
+    - 파라미터에 아무것도 설정안하며 디폴트 페이지 사이즈 만큼 데이터를 가져오는데 디폴트값은 20이다
+       - 이값을 변경하고 싶으면 application.yml의 data.web.pageable.default-page-size옵션에 값을 할당해주면된다.
