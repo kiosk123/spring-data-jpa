@@ -7,7 +7,11 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @MappedSuperclass
+@Getter @Setter
 public class JpaBaseEntity {
     
     @Column(updatable = false) //등록일은 수정못하게 막는다.
