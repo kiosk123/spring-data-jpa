@@ -119,3 +119,5 @@
     - 파라미터에 아무것도 설정안하며 디폴트 페이지 사이즈 만큼 데이터를 가져오는데 디폴트값은 20이다
        - 이 값을 변경하고 싶으면 application.yml의 data.web.pageable.default-page-size옵션에 값을 할당해주면된다.(글로벌 설정)
        - 특정 URL에만 페이지 사이즈 값을 조절하고 싶으면 @PageableDefault를 활용한다. 
+       - 컨트롤러에서 처리되는 Pageable이 둘이상이면 @Qualifier에 접두사를 추가한다. 
+           - ex) @Qualifier("member") -> member_page=0&member_size=10
