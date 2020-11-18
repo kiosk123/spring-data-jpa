@@ -6,6 +6,7 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,7 +45,7 @@ public class MemberController {
      *  ex) page=1&sort=id,desc&sort=userName,desc
      */
     @GetMapping("/members")
-    public Page<Member> list(Pageable pageable) {
+    public Page<Member> list(@PageableDefault(size = 15, sort = {"userName"})Pageable pageable) {
         return memberRepository.findAll(pageable);
     }
     
