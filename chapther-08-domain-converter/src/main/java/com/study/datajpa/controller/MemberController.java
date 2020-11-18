@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.study.datajpa.domain.Member;
 import com.study.datajpa.domain.Team;
+import com.study.datajpa.dto.MemberDTO;
 import com.study.datajpa.repository.MemberRepository;
 import com.study.datajpa.repository.TeamRepository;
 
@@ -57,9 +58,24 @@ public class MemberController {
     }
     
     /**
+     * 실제로는 pagign처리 후 API 반환할 때 다음과 같이 DTO로 변환해서 반환한다.
+     */
+    @GetMapping("/memberdtos")
+    public Page<MemberDTO> listToDto(@PageableDefault(size = 15, sort = {"userName"})Pageable pageable) {
+        return memberRepository.findAll(pageable)
+                               .map(member -> new MemberDTO(member.getId(), 
+                                                            member.getUserName(), 
+                                                            member.getTeam() == null ? null : member.getTeam().getName()));
+    }
+    
+    
+    /**
      * 컨트롤러에서 처리되는 Pageable이 둘이상이면 @Qualifier에 접두사를 추가하고
      * 접두사 추가시 다음과 같은 형태로 파라미터가 바인딩 된다.
      * @Qualifier("member") -> member_size=10&member_page=1,...
+     * 
+     * 이 예제에서는 엔티티를 그대로 반환하지만 실제로는 DTO로 변환해서 반환해야한다.!!!!!!!!! 중요!!!!!!!!!!
+     * ex) Page<MemberDTO> toMap = page.map(member -> new MemberDTO(member.getId(), member.getUserName(), member.getTeam().getName()));
      */
     @GetMapping("/members_and_teams")
     public MemberAndTeamPageDTO<Member, Team> getMemberAndOrderPage(@Qualifier("member") Pageable mPagable, 
