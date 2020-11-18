@@ -7,7 +7,6 @@ import javax.persistence.LockModeType;
 import javax.persistence.NamedQuery;
 import javax.persistence.QueryHint;
 
-import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -21,11 +20,14 @@ import org.springframework.data.repository.query.Param;
 
 import com.study.datajpa.domain.Member;
 import com.study.datajpa.dto.MemberDTO;
+import com.study.datajpa.repository.redefine.MemberRepositoryCustom;
 
-
+/**
+ * 사용자 정의 MemberRepsitoryCustom 인터페이스를 사속하도록 한다.
+ */
 @NamedQuery(name = "Member.findByUserName",
             query = "select m from Member m where m.userName = :userName")
-public interface MemberRepository extends JpaRepository<Member, Long> {
+public interface MemberRepository extends JpaRepository<Member, Long> , MemberRepositoryCustom {
     
     //Optional로 반환가능함
     Optional<Member> findByUserNameAndAge(String userName, int age);

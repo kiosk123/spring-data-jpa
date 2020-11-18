@@ -67,11 +67,19 @@
     - JPA 힌트 & 락
         - JPA 쿼리 힌트(@QueryHints, @QueryHint) (SQL 힌트가 아니라 JPA 구현체에게 제공하는 힌트)
  - 챕터 7 : 확장
-    - 사용자 정의 리포지토리 : 인터페이스 메서드 직접 구현시 구현기능이 많아짐 다양한 이유로 직접 특정 메서드만 특정 기능으로 구현하고 싶을 때 사용
-        - JPA 직접 사용
-        - 스프링 JDBC Template 사용
-        - MyBatis 사용
-        - 데이터베이스 커넥션 직접 사용
-        - Query DSL 사용
-    
-        
+    - 사용자 정의 리포지토리 
+        - 용도
+            - 인터페이스 메서드 직접 구현시 구현기능이 많아짐 다양한 이유로 직접 특정 메서드만 특정 기능으로 구현하고 싶을 때 사용
+            - JPA 직접 사용
+            - 스프링 JDBC Template 사용
+            - MyBatis 사용
+            - 데이터베이스 커넥션 직접 사용
+            - Query DSL 사용
+       - 구현방법
+            - 특정 기능이 정의된 인터페이스 생성 (ex) MemberRepositoryCustom
+            - 특정 기능을 구현할 클래스 생성 후 구현(ex) MemberRepositoryImpl implements MemberRepositoryCustom
+            - 생성할 클래스 명은 Spring Data JPA 기능 정의 인터페이스 명 + Impl 규칙을 지켜야함
+                - Spring Data JPA 기능 정의 인터페이스 명이 MemberRepository 명이면,
+                - 생성 클래스 명은 MemberRepositoryImpl
+            - 특정 기능의 정의된 인터페이스를 Spring Data JPA 기능 정의 인터페이스가 상속 받게 함
+                - (ex) MemberRepository extends JpaRepository<T,ID>, MemberRepositoryCustom
