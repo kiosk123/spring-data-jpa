@@ -103,3 +103,6 @@
                - @LastModifiedDate
                - @CreatedBy - AuditorAware<Type>을 구현한 빈을 등록한 후 사용
                - @LastModifiedBy - AuditorAware<Type>을 구현한 빈을 등록한 후 사용
+           - @EntityListeners(AuditingEntityListener.class)를 공통 클래스로 구현되어 있어 직접 개별로 상속 받는 게 귀찮을 때
+               - META-INF/orm.xml에 내용을 설정하고 엔티티전체에서 공통으로 실행할 수 있도록 한다
+                   - META-INF/orm.xml 파일 내용은 프로젝트 디렉터리의 orm.xml의 내용을 참고 할 것
