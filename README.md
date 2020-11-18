@@ -101,5 +101,5 @@
            - @EntityListeners(AuditingEntityListener.class) - 엔티티에 적용
                - @CreatedDate
                - @LastModifiedDate
-               - @CreatedBy
-               - @LastModifiedBy
+               - @CreatedBy - AuditorAware<Type>을 구현한 빈을 등록한 후 사용
+               - @LastModifiedBy - AuditorAware<Type>을 구현한 빈을 등록한 후 사용

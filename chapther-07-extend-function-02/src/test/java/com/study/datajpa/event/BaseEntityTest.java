@@ -45,10 +45,15 @@ class BaseEntityTest {
         //then
         assertNotNull(findMember.getCreateDate());
         assertNotNull(findMember.getUpdatedDate());
+        assertNotNull(findMember.getCreateBy());
+        assertNotNull(findMember.getLastModifiedBy());
         assertNotEquals(findMember.getCreateDate(), findMember.getUpdatedDate());
+        assertNotEquals(findMember.getCreateBy(), findMember.getLastModifiedBy());
         
         System.out.println("created date : " + findMember.getCreateDate());
         System.out.println("updated date : " +findMember.getUpdatedDate());
+        System.out.println("created by : " + findMember.getCreateBy());
+        System.out.println("last modified by : " + findMember.getLastModifiedBy());
         
     }
 
