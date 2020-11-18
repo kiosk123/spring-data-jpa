@@ -11,7 +11,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.study.datajpa.domain.Member;
-import com.study.datajpa.domain.Team;
 import com.study.datajpa.repository.MemberRepository;
 
 @SpringBootTest
