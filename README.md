@@ -121,6 +121,5 @@
        - 특정 URL에만 페이지 사이즈 값을 조절하고 싶으면 @PageableDefault를 활용한다. 
        - 컨트롤러에서 처리되는 Pageable이 둘이상이면 @Qualifier에 접두사를 추가한다. 
            - ex) @Qualifier("member") -> member_page=0&member_size=10
-    - page파라미터 시작 페이지값을 0이아닌 1로 시작하려면 application.yml에  
-      spring.data.web.pageable.one-indexed-parameters 옵션을 true로 설정하면 되지만  
-      응답되는 페이지 시작번호의 값은 여전히 0부터 시작하는 문제가 있다
+    - page파라미터 시작 페이지값을 0이아닌 1로 시작하려면 application.yml에 spring.data.web.pageable.one-indexed-parameters 옵션을 true로 설정하면 되지만  
+      응답되는 페이지 시작번호의 값은 여전히 0부터 시작하는 문제가 있다 (되도록 기본 옵션으로 할 것을 권장)
