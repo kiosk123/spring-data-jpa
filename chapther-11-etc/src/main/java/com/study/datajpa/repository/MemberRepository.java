@@ -114,4 +114,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> , MemberRe
     List<UserNameOnlyDTO> findDTOProjectionsByUserName(@Param("userName") String userName);
     
     <T> List<T> findGenericProjectionsByUserName(@Param("userName") String userName, Class<T> type);
+    
+    @Query(value = "select * from member where username = ?", nativeQuery = true)
+    List<Object[]> findByNativeQuery(@Param("username") String userName);
 }
