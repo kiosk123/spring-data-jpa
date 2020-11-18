@@ -1,6 +1,7 @@
 package com.study.datajpa.event;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import javax.persistence.EntityManager;
 
@@ -10,24 +11,24 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.study.datajpa.domain.Member;
-import com.study.datajpa.repository.MemberRepository;
+import com.study.datajpa.domain.MemberJpaEntity;
+import com.study.datajpa.repository.MemberJpaTestRepository;
 
 @ActiveProfiles("test")
 @SpringBootTest
 @Transactional
-class BaseEntityTest {
-
+class JpaBaseEntityTest {
+    
     @Autowired
-    MemberRepository memberRepository;
+    MemberJpaTestRepository memberRepository;
     
     @Autowired
     EntityManager em;
     
     @Test
-    public void testBaseEntity() {
+    public void testJpaBaseEntity() {
         //given
-        Member member = new Member("member1");
+        MemberJpaEntity member = new MemberJpaEntity("member1");
         memberRepository.save(member);
         
         try {
@@ -40,7 +41,7 @@ class BaseEntityTest {
         em.clear();
         
         //when
-        Member findMember = memberRepository.findById(member.getId()).get();
+        MemberJpaEntity findMember = memberRepository.findById(member.getId()).get();
         
         //then
         assertNotNull(findMember.getCreateDate());
@@ -51,5 +52,4 @@ class BaseEntityTest {
         System.out.println("updated date : " +findMember.getUpdatedDate());
         
     }
-
 }

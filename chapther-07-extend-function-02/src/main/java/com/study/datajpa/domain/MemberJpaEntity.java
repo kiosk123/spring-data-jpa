@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -23,7 +24,8 @@ import lombok.ToString;
 @RequiredArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString(of = {"id", "userName", "age"})
-public class Member extends BaseEntity {
+@Table(name = "MEMBER")
+public class MemberJpaEntity extends JpaBaseEntity{
     
     @Id @GeneratedValue
     @Column(name = "MEMBER_ID")
@@ -35,9 +37,9 @@ public class Member extends BaseEntity {
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TEAM_ID")
-    private Team team;
+    private TeamJpaEntity team;
     
-    public Member(String userName, int age, Team team) {
+    public MemberJpaEntity(String userName, int age, TeamJpaEntity team) {
         this.userName = userName;
         this.age = age;
         if (!Objects.isNull(team)) {
@@ -45,7 +47,7 @@ public class Member extends BaseEntity {
         }
     }
     
-    public Member(String userName, int age) {
+    public MemberJpaEntity(String userName, int age) {
         this.userName = userName;
         this.age = age;
     }
@@ -53,7 +55,7 @@ public class Member extends BaseEntity {
     /**
      * 연관관계 편의 메서드
      */
-    public void changeTeam(Team team) {
+    public void changeTeam(TeamJpaEntity team) {
         this.team = team;
         if (!Objects.isNull(id)) {
             team.getMembers().removeIf(m -> m.getId().equals(id)); 

@@ -96,4 +96,10 @@
            - 수정일
            - 등록자
            - 수정자
-       - 곁다리로 @PrePersist @PreUpdate등을 활용하면 좀 더 편하게 처리할 수 있따.
+       - @PrePersist @PreUpdate, @PostPersist, @PostUpdate등 순수 JPA기능을 더 쉽게 활용할 수 있는 기능을 제공
+           - 기능 활성화시 @Configuration 클래스(@SpringBootApplication)에 @EnableJpaAudting을 반드시 설정해야함 !!!!!!!!!!
+           - @EntityListeners(AuditingEntityListener.class) - 엔티티에 적용
+               - @CreatedDate
+               - @LastModifiedDate
+               - @CreatedBy
+               - @LastModifiedBy
