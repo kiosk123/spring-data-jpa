@@ -81,5 +81,7 @@
             - 생성할 클래스 명은 Spring Data JPA 기능 정의 인터페이스 명 + Impl 규칙을 지켜야함
                 - Spring Data JPA 기능 정의 인터페이스 명이 MemberRepository 명이면,
                 - 생성 클래스 명은 MemberRepositoryImpl
+                    - Impl 대신 다른 이름을 사용하고 싶다면 @EnableJpaRepository 애너테이션의 옵션을 활용한다.
+                        - (ex) @EnableJpaRepositories(basePackages = "study.datajpa.repository", repositoryImplementationPostfix = "Impl")
             - 특정 기능의 정의된 인터페이스를 Spring Data JPA 기능 정의 인터페이스가 상속 받게 함
                 - (ex) MemberRepository extends JpaRepository<T,ID>, MemberRepositoryCustom
