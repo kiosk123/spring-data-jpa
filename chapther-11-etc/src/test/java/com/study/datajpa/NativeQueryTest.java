@@ -1,6 +1,6 @@
 package com.study.datajpa;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ActiveProfiles;
 
 import com.study.datajpa.domain.Member;
 import com.study.datajpa.domain.Team;
@@ -41,11 +40,11 @@ class NativeQueryTest {
         em.clear();
         
         //when
-         memberRepository.findByNativeQuery("m1");
+        Member findMember = memberRepository.findByNativeQuery("m1");
         
         //then
-//        assertEquals(m1.getAge(), findMember.getAge());
-//        assertEquals(m1.getUserName(), findMember.getUserName());
+        assertEquals(m1.getAge(), findMember.getAge());
+        assertEquals(m1.getUserName(), findMember.getUserName());
     }
 
 }
