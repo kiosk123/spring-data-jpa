@@ -118,6 +118,7 @@ spring:
                - @LastModifiedDate
                - @CreatedBy - AuditorAware<Type>을 구현한 빈을 등록한 후 사용
                - @LastModifiedBy - AuditorAware<Type>을 구현한 빈을 등록한 후 사용
+                   - 다만 @EnableJpaAuditing(modifyOnCreate = false) 설정하면 엔티티 생성시 @LastModifiedDate필드로 설정된 부분을 NULL로 세팅한다.
            - @EntityListeners(AuditingEntityListener.class)를 클래스 구현때마다 붙이는게 귀찮을 때
                - META-INF/orm.xml에 내용을 설정하고 엔티티전체에서 공통으로 실행할 수 있도록 한다
                    - META-INF/orm.xml 파일 내용은 프로젝트 디렉터리의 orm.xml의 내용을 참고 할 것
