@@ -1,4 +1,4 @@
-package com.study.datajpa.repository.redefine;
+package com.study.datajpa.repository.internal;
 
 import java.util.List;
 

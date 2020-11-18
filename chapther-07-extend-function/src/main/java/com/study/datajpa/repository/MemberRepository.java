@@ -20,7 +20,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.study.datajpa.domain.Member;
 import com.study.datajpa.dto.MemberDTO;
-import com.study.datajpa.repository.redefine.MemberRepositoryCustom;
+import com.study.datajpa.repository.internal.MemberRepositoryCustom;
 
 /**
  * 사용자 정의 MemberRepsitoryCustom 인터페이스를 사속하도록 한다.
