@@ -22,6 +22,7 @@ import com.study.datajpa.domain.Member;
 import com.study.datajpa.dto.MemberDTO;
 import com.study.datajpa.dto.UserData;
 import com.study.datajpa.dto.UserNameOnly;
+import com.study.datajpa.dto.UserNameOnlyDTO;
 import com.study.datajpa.repository.internal.MemberRepositoryCustom;
 
 /**
@@ -109,4 +110,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> , MemberRe
     List<UserNameOnly> findProjectionsByUserName(@Param("userName") String userName);
     
     List<UserData> findOpenProjectionsByUserName(@Param("userName") String userName);
+    
+    List<UserNameOnlyDTO> findDTOProjectionsByUserName(@Param("userName") String userName);
 }

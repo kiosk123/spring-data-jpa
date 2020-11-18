@@ -2,7 +2,7 @@ package com.study.datajpa.dto;
 
 import org.springframework.beans.factory.annotation.Value;
 
-//--오픈 프로젝션--//
+//--open 프로젝션--//
 public interface UserData {
     
     /**

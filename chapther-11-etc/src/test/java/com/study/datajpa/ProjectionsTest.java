@@ -19,6 +19,7 @@ import com.study.datajpa.domain.Member;
 import com.study.datajpa.domain.Team;
 import com.study.datajpa.dto.UserData;
 import com.study.datajpa.dto.UserNameOnly;
+import com.study.datajpa.dto.UserNameOnlyDTO;
 import com.study.datajpa.repository.MemberRepository;
 
 @ActiveProfiles("test")
@@ -54,6 +55,11 @@ class ProjectionsTest {
         List<UserData> datas = memberRepository.findOpenProjectionsByUserName("m1");
         String data = m1.getUserName() + " " + m1.getAge();
         assertEquals(data, datas.get(0).getUserData());
+        
+        
+        //dto클래스를 이용한 프로젝션
+        List<UserNameOnlyDTO> dtos = memberRepository.findDTOProjectionsByUserName("m1");
+        assertEquals("m1", dtos.get(0).getUserName());
     } 
 
 }
