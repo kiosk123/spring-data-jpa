@@ -51,6 +51,7 @@ public class MemberController {
      *  MVC에서 페이징처리 예제에서는 엔티티를 반환하지만 실제로는 DTO로 변환해서 반환하자!!!
      *  page - 데이터를 가져올 page 번호(0번 부터 시작), page만 지정한 경우 한번에 20개씩 가져온다(아무것도 지정안할시 첫번째 페이지 번호로 설정)
      *  sort - 특정 컬럼을 기준으로 정렬하는데 사용한다. sort=정렬대상프로퍼티명,<asc,desc>형태로 사용한다.
+     *         정렬 컬럼 대상이 여러개이면 sort=userName,desc&sort=age,asc 이런식으로 넘긴다
      *  size - 한페이지에 노출할 데이터 건수
      *  ex) page=1&sort=id,desc&sort=userName,desc
      */
@@ -66,7 +67,8 @@ public class MemberController {
     public Page<MemberDTO> listToDto(@PageableDefault(size = 15, sort = {"userName"})Pageable pageable) {
         return memberRepository.findAll(pageable)
                                .map(member -> new MemberDTO(member.getId(), 
-                                                            member.getUserName(), 
+                                                            member.getUserName(),
+                                                            member.getAge(),
                                                             member.getTeam() == null ? null : member.getTeam().getName()));
     }
     
@@ -102,6 +104,7 @@ public class MemberController {
     public void init() {
         IntStream.range(0, 100).forEach(n -> {
             memberRepository.save(new Member("user" + n, n, null));
+            memberRepository.save(new Member("user" + n, n + 1, null));
             teamRepository.save(new Team("team" + n));
         });
     }

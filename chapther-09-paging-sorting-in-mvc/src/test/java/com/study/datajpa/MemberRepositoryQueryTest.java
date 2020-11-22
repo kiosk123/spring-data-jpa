@@ -196,7 +196,7 @@ class MemberRepositoryQueryTest {
         assertThat(page.hasPrevious()).isFalse();
         
         //page 타입을 DTO로 변환
-        Page<MemberDTO> toMap = page.map(member -> new MemberDTO(member.getId(), member.getUserName(), member.getTeam().getName()));
+        Page<MemberDTO> toMap = page.map(member -> new MemberDTO(member.getId(), member.getUserName(),member.getAge(), member.getTeam().getName()));
         
         
     }
