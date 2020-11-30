@@ -25,7 +25,7 @@
 
 ## 스프링 부트 JPA 매핑 테이블및 컬럼 네이밍 규칙
  - 스프링 부트에서 엔티티명과 프로퍼티가 JPA 테이블과 테이블 컬럼과 매핑될때 기본적으로 카멜케이스 + 언더스코어 전략을 사용한다.
-    - ex) 프포퍼티명이 userName일 경우 -> USER_NAME 컬럼과 매핑
+    - ex) 프로퍼티명이 userName일 경우 -> USER_NAME 컬럼과 매핑
  - 카멜케이스 + 언더스코어 전략을 사용하지 않을 경우 application.yml 파일 옵션에 다음과 같이 설정한다. [참고](https://www.baeldung.com/hibernate-field-naming-spring-boot)
 
 ```
@@ -75,7 +75,7 @@ spring:
           가장 좋은 것은 벌크 연산만으로 처리가 끝나는 경우가 가장 좋다. 
     - @EntityGraph
         - 연관된 엔티티들을 SQL로 한번에 조회하는 방법
-        - JPQL롤 페치조인 쿼리 작성 없이 @EntityGraph와 attributePaths를 이용하여 연관관계가 맺어진 엔티티를 가져올 수 있다.
+        - JPQL 페치조인 쿼리 작성 없이 @EntityGraph와 attributePaths를 이용하여 연관관계가 맺어진 엔티티를 가져올 수 있다.
     - JPA 힌트 & 락
         - JPA 쿼리 힌트(@QueryHints, @QueryHint) (SQL 힌트가 아니라 JPA 구현체에게 제공하는 힌트)
  - 챕터 7 : 확장
