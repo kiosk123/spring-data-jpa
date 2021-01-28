@@ -28,7 +28,7 @@
     - ex) 프로퍼티명이 userName일 경우 -> USER_NAME 컬럼과 매핑
  - 카멜케이스 + 언더스코어 전략을 사용하지 않을 경우 application.yml 파일 옵션에 다음과 같이 설정한다. [참고](https://www.baeldung.com/hibernate-field-naming-spring-boot)
 
-```
+```yml
 spring:
   jpa:
     hibernate:
