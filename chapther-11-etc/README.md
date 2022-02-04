@@ -176,6 +176,7 @@ Page<MemberProjection> findByNativeProjection(Pageable pageable);
 // 하이버네이트 기능 사용
 //given 
 String sql = "select m.username as username from member m";
+
 List<MemberDto> result = em.createNativeQuery(sql) 
                            .setFirstResult(0) 
                            .setMaxResults(10) 
