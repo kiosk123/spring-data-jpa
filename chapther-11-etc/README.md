@@ -163,6 +163,13 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 스프링 데이터 JPA 네이티브 쿼리 + 인터페이스 기반 Projections 활용
 
 ```java
+public interface MemberProjection {
+  Long getId();
+  String getUsername();
+  String getTeamName();
+}
+
+
 @Query(value = "SELECT m.member_id as id, m.username, t.name as teamName " + 
                "FROM member m left join team t", 
                countQuery = "SELECT count(*) from member", 
