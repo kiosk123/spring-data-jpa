@@ -175,10 +175,12 @@ public interface MemberProjection {
                countQuery = "SELECT count(*) from member", 
                nativeQuery = true) 
 Page<MemberProjection> findByNativeProjection(Pageable pageable);
+
+Page<MemberProjection> result = findByNativeProjection(PageRequest.of(0, 10));
 ```
 
 동적 네이티브 쿼리
-- 하이버네이트를 직접 활용 스프링 JdbcTemplate, myBatis, jooq같은 외부 라이브러리 사용
+- 하이버네이트를 직접 활용 하거나 스프링 JdbcTemplate, myBatis, jooq같은 외부 라이브러리 사용
 ```java
 // 하이버네이트 기능 사용
 //given 
