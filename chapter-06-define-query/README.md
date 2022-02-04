@@ -239,35 +239,35 @@ class MemberRepositoryQueryTest {
         
         Page<Member> page = memberRepository.findByAge(age, pageRequest);
         
-        List<Member> content = page.getContent();   // 가져온 데이터
-        Long totalCount = page.getTotalElements();  // 전체 데이터 갯수
+        List<Member> content = page.getContent();
+        Long totalCount = page.getTotalElements();
         
         
         //-- then --//
-        // 3개를 정확하게 가져왔는가?
+        //3개를 정확하게 가져왔는가?
         assertEquals(3, content.size()); 
         
-        // 전체 데이터수가 4개인가
+        //전체 데이터수가 4개인가
         assertEquals(4, totalCount); 
         
-        // 현재 페이지 번호
-        // 현재 페이지번호가 0이 맞는가?
+        //현재 페이지 번호
+        //현재 페이지번호가 0이 맞는가?
         assertEquals(0, page.getNumber()); 
         
-        // 전체페이지 개수
-        // 전체 페이지 갯수는 2개여야 된다. (전체데이터 4개에서 1페이지가 3개로 이루어짐으로)
+        //전체페이지 개수
+        //전체 페이지 갯수는 2개여야 된다. (전체데이터 4개에서 1페이지가 3개로 이루어짐으로)
         assertEquals(2, page.getTotalPages()); 
         
-        // 현재페이지가 첫번째 페이지인가
+        //현재페이지가 첫번째 페이지인가
         assertThat(page.isFirst()).isTrue();
         
-        // 다음페이지가 있은가?
+        //다음페이지가 있은가?
         assertThat(page.hasNext()).isTrue();
         
-        // 이전페이지가 존재하는가?
+        //이전페이지가 존재하는가?
         assertThat(page.hasPrevious()).isFalse();
         
-        // page 타입을 DTO로 변환
+        //page 타입을 DTO로 변환
         Page<MemberDTO> toMap = page.map(member -> new MemberDTO(member.getId(), member.getUserName(), member.getTeam().getName()));
         
         
@@ -289,7 +289,7 @@ class MemberRepositoryQueryTest {
         List<Member> content = slice.getContent();
         
         //-- then --//
-        // 3개를 정확하게 가져왔는가?
+        //3개를 정확하게 가져왔는가?
         /**
          * 실제로는 select ... limit 4; 과 같이
          * 실제로는 4개를 가져옴 -> 요청한 데이터 갯수 + 1
@@ -298,17 +298,17 @@ class MemberRepositoryQueryTest {
          */
         assertEquals(3, content.size()); 
         
-        // 현재 페이지 번호
-        // 현재 페이지번호가 0이 맞는가?
+        //현재 페이지 번호
+        //현재 페이지번호가 0이 맞는가?
         assertEquals(0, slice.getNumber()); 
         
-        // 현재페이지가 첫번째 페이지인가
+        //현재페이지가 첫번째 페이지인가
         assertThat(slice.isFirst()).isTrue();
         
-        // 다음페이지가 있은가?
+        //다음페이지가 있은가?
         assertThat(slice.hasNext()).isTrue();
         
-        // 이전페이지가 존재하는가?
+        //이전페이지가 존재하는가?
         assertThat(slice.hasPrevious()).isFalse();
     }
     
@@ -331,16 +331,17 @@ class MemberRepositoryQueryTest {
          * 
          * JPQL이 아닌 EntityManager의 find()나 @Query를 통한 데이터를 가져오지 않는 쿼리 이름 메소드(ex. findById)로
          * 데이터를 가져온 경우에는 DB가 아닌 먼저 영속성 컨텍스트에 있는 것을 먼저조회하기 때문에
-         * 벌크 연산 후에는 영속성 컨텍스트를 flush()와 clear()를 같이하거나 clear() 해줘야 한다.
+         * 벌크 연산 후에는 영속성 컨텍스트를 flush()와 clear()를 같이하거나 clear() 해줘야 하거나
+         * @Modifying(clearAutomatically = true)로 설정해야 한다.
          * 
          * 가장 좋은 건 벌크연산만 실행하고 딱 끝나는 것이 좋다.!!!
          */
-        assertNotEquals(21, findMember.getAge());
+        assertEquals(21, findMember.getAge());
         
         /**
          * 같은 트랜잭션 상에서 EntityManager의 동일성을 스프링은 보장한다.
          */
-        em.clear();
+        //em.clear();
         
         /**
          * 21살로 정확히 다시 조회된다.
@@ -402,5 +403,4 @@ class MemberRepositoryQueryTest {
     }
     
 }
-
 ```
