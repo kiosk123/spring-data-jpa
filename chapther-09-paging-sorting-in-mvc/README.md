@@ -1,6 +1,10 @@
 # MVC에서 페이징과 정렬 편리하게 처리하기
 - 다음의 파라미터들을 클라이언트에서 컨트롤러로 전달하면 자동으로 컨트롤러에서 Pageable타입에 자동으로 바인딩 해준다.
   - `page` - 데이터를 가져올 page 번호 (**0번 부터 시작**), **page만 지정한 경우 한번에 20개씩 가져온다** (아무것도 지정 안 할시 첫번째 페이지 번호로 설정)
+   ```bash
+  spring.data.web.pageable.default-page-size=20 # 기본 페이지 사이즈 
+  spring.data.web.pageable.max-page-size=2000 # 최대 페이지 사이즈
+  ```
   - `sort` - 특정 컬럼을 기준으로 정렬하는데 사용한다. sort=정렬대상프로퍼티명,<asc|desc>형태로 사용한다.  
             정렬 컬럼 대상이 여러개이면 정렬 컬럼 대상이 여러개이면 `sort=userName,desc&sort=age,asc...` 이런식으로 파라미터를 전달한다.
   - `size` - 한페이지에 노출할 데이터 건수
