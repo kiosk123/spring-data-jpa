@@ -103,7 +103,7 @@ spring:
     - [쿼리 메소드 키워드 참고 2.](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repositories.limit-query-result)
  - 챕터 5 : 네임드쿼리
     - @NamedQuery, @Query, @Param 활용
- - 챕터 6 : 리포지토리에 쿼리 정의
+ - 챕터 6 : 리포지토리 메소드에 쿼리 정의
     - @Query, @Param 활용 
     - 단순 값과 DTO 조회
     - [반환 가능한 타입](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repository-query-return-types)

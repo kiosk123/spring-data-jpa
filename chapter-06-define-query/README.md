@@ -1,52 +1,44 @@
-package com.study.datajpa.repository;
-
-import java.util.List;
-import java.util.Optional;
-
-import javax.persistence.LockModeType;
-import javax.persistence.NamedQuery;
-import javax.persistence.QueryHint;
-
-import com.study.datajpa.domain.Member;
-import com.study.datajpa.dto.MemberDTO;
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
-import org.springframework.data.jpa.repository.EntityGraph;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Lock;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.jpa.repository.QueryHints;
-import org.springframework.data.repository.query.Param;
-
-
-@NamedQuery(name = "Member.findByUserName",
-            query = "select m from Member m where m.userName = :userName")
+# 리포지토리 메소드에 쿼리 정의 - @Query, @Param 활용 
+  
+기본적으로 메소드에 `@Query`를 붙이고 `@Query`에 `JPQL`을 선언함으로써 해당 `@Query`이 붙은 메서드를 호출하면 `@Query`에 선언된 `JPQL`이 실행된다.
+- 기본적으로 `Select` 쿼리에는 `@Query`와 `@Param` 조합을 사용한다. `@Param`를 이용해서 파라미터에 값을 바인딩한다.
+- `@Query`에 JPQL을 이용해서 DTO를 반환할 수 있다
+- 페이징 쿼리시 `@Query`의 `countQuery` 옵션에 전체 카운트 쿼리를 조회할 수 있다. 그리고 이런식으로 처리시 페이징 처리를 위해 반환타입은 `Page<T>` 또는 `Slice<T>`타입으로 반환한다.
+- `Update`나 `Delete`등 벌크성 수정쿼리 실행할 때는 `@Query`와 `@Modifying`을 동시에 사용해야 한다. 벌크성 수정쿼리 실행시는 영속성 컨텍스트 초기화가 필요한데 `@Modifying`은 영속성 컨텍스트를 초기화하는 역할을 한다
+- `@EntityGraph`를 통해서 연관관계로 매핑되어 있는 필드도 같이 조회할 수 있다.
+- `@QueryHints`를 이용하여 조회 성능을 올릴 수 있다. 다만 이것을 설정한 메소드가 반환한 엔티티는 더티체킹이 되지 않기 때문에 값이 변경되어도 추적이 안된다.  
+조회시 부하가 심한 곳에 고민해서 사용해야한다. 
+- `@Lock`를 이용해서 락모드를 설정 할 수 있다.
+```java
 public interface MemberRepository extends JpaRepository<Member, Long> {
     
-    //Optional로 반환가능함
-    Optional<Member> findByUserNameAndAge(String userName, int age);
-    
-    List<Member> findByUserNameAndAgeGreaterThan(String userName, int age);
-    
-    @Query(name = "Member.findByUsername")
-    List<Member> findByUserName(@Param("userName") String userName);
-    
+    //... 생략
+
+    /**
+     * JPQL에 파라미터 매핑
+     */
     @Query("select m from Member m where m.userName = :userName and m.age = :age")
     List<Member> findUser(@Param("userName") String userName, @Param("age") int age);
     
+    /**
+     * JPQL로 특정 필드만 PROJECTION
+     */
     @Query("select m.userName from Member m")
     List<String> findUserNameList();
     
+    /**
+     * JPQL의 IN쿼리 파라미터로 Collection 넘김
+     */
     @Query("select m from Member m where m.userName in :names")
     List<Member> findByNames(@Param("names") List<String> names);
     
+    /**
+     * JPQL로 DTO조회해서 반환하기
+     */
     @Query("select new com.study.datajpa.dto.MemberDTO(m.id, m.userName, t.name) from Member m join m.team t")
     List<MemberDTO> findMemberDTO();
-    
-    /**
+
+   /**
      * totalCount를 가져오는 것은 데이터량이 많아지거나 조인하는 테이블이 많아지면 복잡할 수 있다.
      * totalCount는 조인하여 가져오지 않아도 되는 경우가 많기 때문에 countQuery를 분리하여 사용할 수 있다.
      */
@@ -61,7 +53,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
      */
     @Modifying
     @Query("update Member m set m.age = m.age + 1 where m.age >= :age")
-    int bulkAgePlus(@Param("age")int age);
+    long bulkAgePlus(@Param("age")int age);
     
     
     /*
@@ -101,3 +93,4 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     List<Member> findLockByUserName(String userName);
 }
+```
