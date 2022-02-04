@@ -79,8 +79,9 @@ public abstract class BaseEntity extends BaseTimeEntity {
     private String lastModifiedBy; //수정자
 }
 
-
-@EntityListeners(AuditingEntityListener.class)
+/**
+ * 순수 JPA를 이용한 구현 Auditing 구현 방식 
+ */
 @MappedSuperclass
 @Getter @Setter
 public abstract class JpaBaseEntity {

@@ -5,3 +5,26 @@
   이렇게 되면 persist를 호출하는데 아닌 merge를 호출해서 DB에 해당 식별값에 해당하는 데이터가 있는지 select 쿼리를 하고 나서 엔티티를 생성하게 되는 비효율적인 상황이 발생한다.
 - 해결  
   - `Persistable<식별(PK)필드 타입>` 인터페이스를 엔티티가 구현하여 새로운 엔티티인지 아닌지 판단하는 로직을 구현한다.
+
+# 예제
+```java
+@Entity
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@RequiredArgsConstructor
+public class Item extends BaseEntity implements Persistable<String>{
+    
+    @Id
+    @NonNull
+    private String id;
+
+    /**
+     * 엔티티가 새거인지 아닌지를 판단하는 로직 구현
+     * 여기서는 데이터 생성날짜가 null인 경우 
+     */
+    @Override 
+    public boolean isNew() {
+        return getCreateDate() == null;
+    }
+}
+```
