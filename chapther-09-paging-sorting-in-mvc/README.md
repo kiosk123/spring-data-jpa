@@ -13,6 +13,9 @@
 - page파라미터 시작 페이지값을 0이아닌 1로 시작하려면 
   - `Pageable`, `Page`를 파리미터와 응답 값으로 사용히지 않고, **직접 클래스를 만들어서 처리**한다.  그리고 직접 `PageRequest(Pageable 구현체)`를 생성해서 리포지토리에 넘긴다. 물론 응답값도 Page 대신에 직접 만들어서 제공해야 한다.  
   ```java
+  /**
+   * MyPage 객체는 Page가 페이지 번호 0부터 응답하는 것을 1부터 응답하기 위해 프로그래머가 직접 구현한 클래스 
+   */
     @GetMapping("/memberdtos")
     public MyPage<MemberDTO> listToDto(@PageableDefault(size = 15, sort = {"userName"})Pageable pageable) {
 
