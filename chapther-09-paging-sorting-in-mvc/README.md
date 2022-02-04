@@ -10,8 +10,22 @@
   - 특정 URL에만 페이지 사이즈 값을 조절하고 싶으면 `@PageableDefault`를 활용한다. 
   - 컨트롤러에서 처리되는 `Pageable`이 둘이상이면 `@Qualifier`에 접두사를 추가한다. 
         - ex) `@Qualifier("member") -> member_page=0&member_size=10`
-- page파라미터 시작 페이지값을 0이아닌 1로 시작하려면 application.yml에 `spring.data.web.pageable.one-indexed-parameters` 옵션을 `true`로 설정하면 되지만  
-    **응답되는 페이지 시작번호의 값은 여전히 0부터 시작하는 문제**가 있다 (되도록 **기본 옵션으로 할 것을 권장**)
+- page파라미터 시작 페이지값을 0이아닌 1로 시작하려면 
+  - `Pageable`, `Page`를 파리미터와 응답 값으로 사용히지 않고, **직접 클래스를 만들어서 처리**한다.  그리고 직접 `PageRequest(Pageable 구현체)`를 생성해서 리포지토리에 넘긴다. 물론 응답값도 Page 대신에 직접 만들어서 제공해야 한다.  
+  ```java
+    @GetMapping("/memberdtos")
+    public Page<MemberDTO> listToDto(@PageableDefault(size = 15, sort = {"userName"})Pageable pageable) {
+
+        PageRequest request = PageRequest.of(pageable.getPageNumber() - 1, pageable.getPageSize());
+
+        return memberRepository.findAll(request)
+                                .map(member -> new MemberDTO(member.getId(), 
+                                                            member.getUserName(),
+                                                            member.getAge(),
+                                                            member.getTeam() == null ? null : member.getTeam().getName()));
+    }
+  ```
+  - application.yml에 `spring.data.web.pageable.one-indexed-parameters` 옵션을 `true`로 설정하면 되지만 **응답되는 페이지 시작번호의 값은 여전히 0부터 시작하는 문제**가 있다 (되도록 **기본 옵션으로 할 것을 권장**)
 
 # 예제
 ## 컨트롤러 

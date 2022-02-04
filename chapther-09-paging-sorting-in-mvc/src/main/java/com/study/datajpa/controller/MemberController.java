@@ -6,6 +6,7 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -65,7 +66,10 @@ public class MemberController {
      */
     @GetMapping("/memberdtos")
     public Page<MemberDTO> listToDto(@PageableDefault(size = 15, sort = {"userName"})Pageable pageable) {
-        return memberRepository.findAll(pageable)
+
+        PageRequest request = PageRequest.of(pageable.getPageNumber() - 1, pageable.getPageSize());
+
+        return memberRepository.findAll(request)
                                .map(member -> new MemberDTO(member.getId(), 
                                                             member.getUserName(),
                                                             member.getAge(),
