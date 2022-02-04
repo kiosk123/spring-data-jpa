@@ -14,7 +14,7 @@
   - `Pageable`, `Page`를 파리미터와 응답 값으로 사용히지 않고, **직접 클래스를 만들어서 처리**한다.  그리고 직접 `PageRequest(Pageable 구현체)`를 생성해서 리포지토리에 넘긴다. 물론 응답값도 Page 대신에 직접 만들어서 제공해야 한다.  
   ```java
     @GetMapping("/memberdtos")
-    public Page<MemberDTO> listToDto(@PageableDefault(size = 15, sort = {"userName"})Pageable pageable) {
+    public MyPage<MemberDTO> listToDto(@PageableDefault(size = 15, sort = {"userName"})Pageable pageable) {
 
         PageRequest request = PageRequest.of(pageable.getPageNumber() - 1, pageable.getPageSize());
 
