@@ -20,7 +20,7 @@ public class Item extends BaseEntity implements Persistable<String>{
 
     /**
      * 엔티티가 새거인지 아닌지를 판단하는 로직 구현
-     * 여기서는 데이터 생성날짜가 null인 경우 
+     * 여기서는 데이터 생성날짜가 null인 경우 Persist 대상으로 판단한다 
      */
     @Override 
     public boolean isNew() {
