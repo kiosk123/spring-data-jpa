@@ -15,7 +15,7 @@ public List<Member> findByUserNameAndAgeGreaterThan(String userName, int age) {
 }
 ```
 
-**쿼리 메소드 코드**
+**메소드 이름 쿼리 코드**
 ```java
 /**
  * JpaRepository<엔티티타입, 엔티티PK타입>
