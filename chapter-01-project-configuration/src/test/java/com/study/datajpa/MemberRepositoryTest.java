@@ -28,6 +28,10 @@ class MemberRepositoryTest {
         Member member = new Member("memberA");
         memberRepository.save(member);
         
+        /** 
+         * JpaRepository 인터페이스를 구현하면 기본적으로 findById 메서드가 제공됨
+         * 반환 타입은 Optional<T>
+         */
         Optional<Member> optional = memberRepository.findById(member.getId());
         
         Member findMember = null;
