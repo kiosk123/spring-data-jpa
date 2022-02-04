@@ -158,7 +158,7 @@ class MemberRepositoryQueryTest {
         PageRequest pageRequest = PageRequest.of(0, 3, Sort.by(Sort.Direction.DESC, "userName"));
         
         Page<Member> page = memberRepository.findByAge(age, pageRequest);
-
+        
         List<Member> content = page.getContent();
         Long totalCount = page.getTotalElements();
         
@@ -247,7 +247,7 @@ class MemberRepositoryQueryTest {
          * 원래 나이는 20살에 20 + 1이므로 21살이 되어야한다.
          * 하지만 실제로는 20살이 나온다.
          * 그 이유는 JPQL, @NamedQuery(결국은 JPQL을 query name으로 매핑한 것)로 select하고
-         * 영속성 컨텍스트에서 select로 가져온 엔티티를 반환되지만.
+         * 영속성 컨텍스트에서 select로 가줘온 엔티티를 반환되지만.
          * 
          * JPQL이 아닌 EntityManager의 find()나 @Query를 통한 데이터를 가져오지 않는 쿼리 이름 메소드(ex. findById)로
          * 데이터를 가져온 경우에는 DB가 아닌 먼저 영속성 컨텍스트에 있는 것을 먼저조회하기 때문에

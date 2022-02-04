@@ -47,8 +47,9 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     List<MemberDTO> findMemberDTO();
 
     /**
-     * 페이징 쿼리를 실행하는 메서드의 마지막 파라미터로 Pageable 인터페이스를 선언해야한다.
-     * Page<T>을 반환하면 전체 데이터 갯수를 가져오는 쿼리도 같이 실행된다.
+     * Page<T>나 Slice<T>을 반환한다는 뜻은 페이징 쿼리 Spring Data JPA통해 처리한다는 뜻이기 때문에 메서드 마지막 파라미터로 반드시Pageable을 넘겨줘야한다
+     * Page<T> 반환하는 메서드 실행시 전체 데이터 갯수를 가져오는 쿼리도 같이 실행된다.
+     * 하지만 페이지 정렬이 복잡해지면 Pageable을 이용하지 말고 JPQL에서 직접처리하도록한다.
      * 
      * @Query의 countQuery 옵션을 사용하여 전체 데이터 갯수를 가져오는 쿼리도 최적화할 수 있다.
      * totalCount를 가져오는 것은 데이터량이 많아지거나 조인하는 테이블이 많아지면 복잡할 수 있다.
