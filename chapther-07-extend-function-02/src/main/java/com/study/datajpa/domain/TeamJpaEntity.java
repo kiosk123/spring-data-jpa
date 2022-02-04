@@ -20,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 @Entity @Getter
 @RequiredArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "TEAM")
+@Table(name = "TEAM2")
 public class TeamJpaEntity extends JpaBaseEntity {
     
     @Id @GeneratedValue

@@ -24,7 +24,7 @@ import lombok.ToString;
 @RequiredArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString(of = {"id", "userName", "age"})
-@Table(name = "MEMBER")
+@Table(name = "MEMBER2")
 public class MemberJpaEntity extends JpaBaseEntity{
     
     @Id @GeneratedValue

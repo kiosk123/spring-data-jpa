@@ -160,7 +160,7 @@ spring:
            - 등록자
            - 수정자
        - @PrePersist @PreUpdate, @PostPersist, @PostUpdate등 순수 JPA기능을 더 쉽게 활용할 수 있는 기능을 제공
-           - 기능 활성화시 @Configuration 클래스(@SpringBootApplication)에 @EnableJpaAudting을 반드시 설정해야함 !!!!!!!!!!
+           - 기능 활성화시 @Configuration 클래스(@SpringBootApplication)에 @EnableJpaAuditing 반드시 설정해야함 !!!!!!!!!!
            - @EntityListeners(AuditingEntityListener.class) - 엔티티에 적용
                - @CreatedDate
                - @LastModifiedDate

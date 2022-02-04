@@ -3,13 +3,17 @@ package com.study.datajpa.domain;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
+import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import lombok.Getter;
 import lombok.Setter;
 
+@EntityListeners(AuditingEntityListener.class)
 @MappedSuperclass
 @Getter @Setter
 public class JpaBaseEntity {

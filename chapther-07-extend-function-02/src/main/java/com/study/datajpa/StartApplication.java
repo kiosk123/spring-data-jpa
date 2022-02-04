@@ -2,7 +2,6 @@ package com.study.datajpa;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 //@EnableJpaRepositories("com.study.datajpa.repository")
@@ -14,5 +13,4 @@ public class StartApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(StartApplication.class, args);
 	}
-
 }
