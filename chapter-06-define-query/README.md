@@ -289,7 +289,7 @@ class MemberRepositoryQueryTest {
         List<Member> content = slice.getContent();
         
         //-- then --//
-        //3개를 정확하게 가져왔는가?
+        // 3개를 정확하게 가져왔는가?
         /**
          * 실제로는 select ... limit 4; 과 같이
          * 실제로는 4개를 가져옴 -> 요청한 데이터 갯수 + 1
