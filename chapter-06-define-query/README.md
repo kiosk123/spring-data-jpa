@@ -46,7 +46,11 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @Query("select new com.study.datajpa.dto.MemberDTO(m.id, m.userName, t.name) from Member m join m.team t")
     List<MemberDTO> findMemberDTO();
 
-   /**
+    /**
+     * 페이징 쿼리를 실행하는 메서드의 마지막 파라미터로 Pageable 인터페이스를 선언해야한다.
+     * Page<T>을 반환하면 전체 데이터 갯수를 가져오는 쿼리도 같이 실행된다.
+     * 
+     * @Query의 countQuery 옵션을 사용하여 전체 데이터 갯수를 가져오는 쿼리도 최적화할 수 있다.
      * totalCount를 가져오는 것은 데이터량이 많아지거나 조인하는 테이블이 많아지면 복잡할 수 있다.
      * totalCount는 조인하여 가져오지 않아도 되는 경우가 많기 때문에 countQuery를 분리하여 사용할 수 있다.
      */
@@ -234,8 +238,8 @@ class MemberRepositoryQueryTest {
         
         Page<Member> page = memberRepository.findByAge(age, pageRequest);
         
-        List<Member> content = page.getContent();
-        Long totalCount = page.getTotalElements();
+        List<Member> content = page.getContent();   // 가져온 데이터
+        Long totalCount = page.getTotalElements();  // 전체 데이터 갯수
         
         
         //-- then --//
@@ -249,8 +253,8 @@ class MemberRepositoryQueryTest {
         // 현재 페이지번호가 0이 맞는가?
         assertEquals(0, page.getNumber()); 
         
-        //전체페이지 개수
-        //전체 페이지 갯수는 2개여야 된다. (전체데이터 4개에서 1페이지가 3개로 이루어짐으로)
+        // 전체페이지 개수
+        // 전체 페이지 갯수는 2개여야 된다. (전체데이터 4개에서 1페이지가 3개로 이루어짐으로)
         assertEquals(2, page.getTotalPages()); 
         
         // 현재페이지가 첫번째 페이지인가
