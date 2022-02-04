@@ -2,8 +2,13 @@
 * Spring Data JPA에 대한 공부를 정리한 것으로 사용방법은 리포지토리 클래스와 테스트케이스를 참고  
 
 ## 구성정보
-* JPA 2.2
-* java 버전 11
+* JPA 2.2  
+* java 버전 11  
+* lombok  
+* spring-data-jpa  
+* h2 데이터베이스  
+* Spring Web MVC  
+
 
 ## 스프링 부트 프로젝트 구성하기
 * [Spring Initializr 사이트 활용](https://start.spring.io/)
