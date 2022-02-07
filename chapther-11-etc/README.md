@@ -155,7 +155,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
   - DTO 대신 JPA `TUPLE` 조회 
   - DTO 대신 `MAP` 조회 
   - `@SqlResultSetMapping` 복잡 Hibernate ResultTransformer를 사용해야함 복잡 
-  - https://vladmihalcea.com/the-best-way-to-map-a-projection-query-to-a-dto-with-jpaand-hibernate/
+  - https://vladmihalcea.com/the-best-way-to-map-a-projection-query-to-a-dto-with-jpa-and-hibernate/
   - 네이티브 SQL을 DTO로 조회할 때는 JdbcTemplate or myBatis 권장
 
 
